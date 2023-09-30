@@ -6,7 +6,7 @@ from transformers import (
 )
 
 
-st.title("Question Answering App")
+st.title("Question Answering Workflow for Swinburne Online FAQs")
 
 model_name = "hzsushiqiren/bert-finetuned-squad"
 model = AutoModelForQuestionAnswering.from_pretrained(model_name)
@@ -20,7 +20,7 @@ if "input_values" not in st.session_state:
 
 # Add text inputs for question and context
 question_input = st.text_input("Question:", value=st.session_state.input_values["question"])
-context_input = st.text_input("Context:", value=st.session_state.input_values["context"])
+context_input = st.text_area("Context:", value=st.session_state.input_values["context"])
 
 
 # Create a button for get answers
