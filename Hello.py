@@ -22,7 +22,7 @@ def deploy():
 
     # Create a button for resetting inputs
     reset_button = st.button("Clear Answer")
-    
+
     model_name = "hzsushiqiren/bert-finetuned-squad"
     model = AutoModelForQuestionAnswering.from_pretrained(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -43,20 +43,25 @@ def deploy():
 
         st.text_area("Answer:", res['answer'])
         st.write("Score:", res['score'])
+
+        del (
+            question_input,
+            context_input,
+            model_name,
+            model,
+            tokenizer,
+            nlp,
+            QA_input,
+            res,
+        )
+        gc.collect()
         
 
     # Handle reset button click
     if reset_button:
         question_input = ""
         context_input = ""
-
-    del (
-        model_name,
-        model,
-        tokenizer,
-        nlp,        
-    )
-    gc.collect()
+   
 
 deploy() 
 
