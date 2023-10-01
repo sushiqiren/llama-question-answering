@@ -14,20 +14,20 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 
 nlp = pipeline('question-answering', model=model, tokenizer=tokenizer)
 
-# Use session state to manage input values
-if "input_values" not in st.session_state:
-    st.session_state.input_values = {"question": "", "context": "", "answer": ""}
+# # Use session state to manage input values
+# if "input_values" not in st.session_state:
+#     st.session_state.input_values = {"question": "", "context": "", "answer": ""}
 
 # Add text inputs for question and context
-question_input = st.text_input("Question:", value=st.session_state.input_values["question"])
-context_input = st.text_area("Context:", value=st.session_state.input_values["context"])
+question_input = st.text_input("Question:")
+context_input = st.text_area("Context:")
 
 
 # Create a button for get answers
 get_button = st.button("Get Answer")
 
 # Create a button for resetting inputs
-reset_button = st.button("Reset")
+reset_button = st.button("Clear Answer")
 
 if get_button:
     QA_input = {
@@ -39,15 +39,14 @@ if get_button:
 
     st.text_area("Answer:", res['answer'])
     st.write("Score:", res['score'])
-    st.session_state.input_values["answer"] = res['answer']
+    
 
 # Handle reset button click
-if reset_button:          
-    st.session_state.input_values = {"question": "", "context": "", "answer": ""}
-    question_input = st.session_state.input_values["question"]
-    context_input = st.session_state.input_values["context"] 
+if reset_button:
+    question_input = ""
+    context_input = "" 
 
-# Update the input values when the user enters text
-if not reset_button:  # Only update when the reset button is not clicked
-    st.session_state.input_values["question"] = question_input
-    st.session_state.input_values["context"] = context_input
+# # Update the input values when the user enters text
+# if not reset_button:  # Only update when the reset button is not clicked
+#     st.session_state.input_values["question"] = question_input
+#     st.session_state.input_values["context"] = context_input
